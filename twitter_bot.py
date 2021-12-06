@@ -15,22 +15,26 @@ class InternetSpeedTwitterBot:
         self.down = 0
 
     def get_internet_speed(self):
-        # opening URL
+        # opening URL, of speed-testing website
         self.driver.get("https://fast.com/#")
 
         time.sleep(20)
-        # this website automatically starts analyzing after loading, after clicking on more info button we've no need
+
+        # this website automatically starts analyzing after loading,
+        # after clicking on more info button we've no need
         # of clicking the start button again
         info_button = self.driver.find_element(By.ID, "show-more-details-link")
         info_button.click()
 
         time.sleep(60)
-        # after waiting for operation to finish saving speed of down and up
+
+        # after waiting for operation to finish saving speed of down and up, extracting both speeds from web
         self.down = self.driver.find_element(By.ID, 'speed-value').text
         self.up = self.driver.find_element(By.ID, 'upload-value').text
         return f"{self.down}down/{self.up}up"
 
     def tweet_at_provider(self, username, password, message):
+
         # opening twitter login page
         self.driver.get("https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5n"
                         "IjoicnUifQ%3D%3D%22%7D")
